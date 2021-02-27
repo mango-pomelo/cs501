@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">HangmanGame</string>
+
+
+<string name="a">a</string>
+<string name="b">b</string>
+<string name="c">c</string>
+<string name="d">d</string>
+<string name="e">e</string>
+<string name="f">f</string>
+<string name="g">g</string>
+<string name="h">h</string>
+<string name="i">i</string>
+<string name="j">j</string>
+<string name="k">k</string>
+<string name="l">l</string>
+<string name="m">m</string>
+<string name="n">n</string>
+<string name="o">o</string>
+<string name="p">p</string>
+<string name="q">q</string>
+<string name="r">r</string>
+<string name="s">s</string>
+<string name="t">t</string>
+<string name="u">u</string>
+<string name="v">v</string>
+<string name="w">w</string>
+<string name="x">x</string>
+<string name="y">y</string>
+<string name="z">z</string>
+<string name="empty"> </string>
+<string name="chooseletter">CHOOSE A LETTER</string>
+<string name="hint">HINT:</string>
+<string name="word1">apple</string>
+<string name="hint1_1">fruit</string>
+<string name="hint1_2">sweet</string>
+<string name="word2">steak</string>
+<string name="hint2_1">food</string>
+<string name="hint2_2">meat</string>
+<string name="word3">chair</string>
+<string name="hint3_1">furniture</string>
+<string name="hint3_2">sit</string>
+<string name="word4">star</string>
+<string name="hint4_1">sky</string>
+<string name="hint4_2">bright</string>
+<string name="word5">rabbit</string>
+<string name="hint5_1">pet</string>
+<string name="hint5_2">cute</string>
+
+</resources>
