@@ -29,5 +29,22 @@
 <string name="y">y</string>
 <string name="z">z</string>
 <string name="empty"> </string>
+<string name="chooseletter">CHOOSE A LETTER</string>
+<string name="hint">HINT:</string>
+<string name="word1">apple</string>
+<string name="hint1_1">fruit</string>
+<string name="hint1_2">sweet</string>
+<string name="word2">steak</string>
+<string name="hint2_1">food</string>
+<string name="hint2_2">meat</string>
+<string name="word3">chair</string>
+<string name="hint3_1">furniture</string>
+<string name="hint3_2">sit</string>
+<string name="word4">star</string>
+<string name="hint4_1">sky</string>
+<string name="hint4_2">bright</string>
+<string name="word5">rabbit</string>
+<string name="hint5_1">pet</string>
+<string name="hint5_2">cute</string>
 
 </resources>
