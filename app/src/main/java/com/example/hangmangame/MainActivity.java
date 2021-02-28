@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     ImageView img;
     TextView[] txtWord;
 
+    ArrayList<View> alphabetButtons;
+
     String word;
     String hint1;
     String hint2;
@@ -40,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
         img = (ImageView) findViewById(R.id.img);
         img.setImageResource(R.drawable.hangman_0);
         llMain = findViewById(R.id.llMain);
+
+        alphabetButtons = (findViewById(R.id.tableLayout)).getTouchables();
 
         words = new Hashtable<String, String[]>();
         String[] hints1 = {getResources().getString(R.string.hint1_1), getResources().getString(R.string.hint1_2)};
@@ -76,16 +80,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
         buttonSelected.setClickable(false);
-        buttonSelected.setTextColor(Color.RED);
+        buttonSelected.setTextColor(Color.GRAY);
     }
 
     private void enableButtons() {
-        TableLayout buttonTable = findViewById(R.id.tableLayout);
-        ArrayList<View> layoutButtons = buttonTable.getTouchables();
-
-        for (View v : layoutButtons) {
+        for (View v : alphabetButtons) {
             if (v instanceof Button) {
-                System.out.println(((Button) v).getText().toString());
                 ((Button) v).setClickable(true);
                 ((Button) v).setTextColor(Color.BLACK);
             }
