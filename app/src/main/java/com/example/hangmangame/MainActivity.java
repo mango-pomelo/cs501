@@ -1,8 +1,8 @@
 package com.example.hangmangame;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout llMain;
     private LinearLayout.LayoutParams llParams;
 
+    Button btnHint;
     Button btnNewGame;
     ImageView img;
     TextView[] txtWord;
@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     boolean[] letterChosen;
 
     int score;
+    int numHints;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         alphabetButtons = (findViewById(R.id.tableLayout)).getTouchables();
 
         score = 0;
+        numHints = 0;
 
         words = new Hashtable<String, String[]>();
         String[] hints1 = {getResources().getString(R.string.hint1_1), getResources().getString(R.string.hint1_2)};
@@ -65,12 +67,59 @@ public class MainActivity extends AppCompatActivity {
 
         createNewGame();
 
+        int orientation = this.getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            btnHint = new Button(this);
+            btnHint.setText("Hint");
+            btnHint.setTag("btnHint");
+            btnHint.setLayoutParams(llParams);
+            llMain.addView(btnHint);
+
+            btnHint.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    numHints += 1;
+
+                    switch (numHints) {
+                        case 1:
+                            // show hint 1
+                            break;
+                        case 2:
+                            // show hint 2
+                            break;
+                        case 3:
+                            showOneLetter();
+                            btnHint.setEnabled(false);
+                    }
+                }
+            });
+        }
+
         btnNewGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 createNewGame();
             }
         });
+    }
+
+
+    private Button findButton(String letter) {
+        for (View v : alphabetButtons) {
+            if (v instanceof Button && ((Button) v).getText().toString().equals(letter)) {
+                return (Button) v;
+            }
+        }
+        return (Button) alphabetButtons.get(0);
+    }
+
+    private void showOneLetter() {
+        for (int i = 0; i < word.length(); i++) {
+            if (!letterChosen[i]) {
+                selectLetter(findButton(word.substring(i, i+1)));
+                break;
+            }
+        }
     }
 
     void calculateScore() {
@@ -85,8 +134,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
-
 
     public void selectLetter(View view) {
         Button buttonSelected = (Button) findViewById(view.getId());
@@ -156,14 +203,13 @@ public class MainActivity extends AppCompatActivity {
     void endGame(String outcome) {
         disableButtons();
         calculateScore();
-        
+
         if (outcome.equals("win")) {
             Toast.makeText(this, "You win! Score: " + score, Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(this, "You lose! Score: " + score, Toast.LENGTH_LONG).show();
         }
     }
-
 
     private void enableButtons() {
         for (View v : alphabetButtons) {
