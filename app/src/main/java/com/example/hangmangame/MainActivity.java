@@ -35,8 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     boolean[] letterChosen;
 
-    int wins;
-    int losses;
+    int score;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
         alphabetButtons = (findViewById(R.id.tableLayout)).getTouchables();
 
-        wins = 0;
-        losses = 0;
+        score = 0;
 
         words = new Hashtable<String, String[]>();
         String[] hints1 = {getResources().getString(R.string.hint1_1), getResources().getString(R.string.hint1_2)};
@@ -74,6 +72,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    void calculateScore() {
+        for (int i = 0; i < word.length(); i++) {
+            if (letterChosen[i]) {
+                String letter = word.substring(i, i+1);
+                if (letter.equals("a") || letter.equals("e") || letter.equals("i") || letter.equals("o") || letter.equals("u")) {
+                    score += 10;
+                } else{
+                    score += 5;
+                }
+            }
+        }
+    }
+
 
 
     public void selectLetter(View view) {
@@ -143,14 +155,12 @@ public class MainActivity extends AppCompatActivity {
 
     void endGame(String outcome) {
         disableButtons();
-        String score = "Current score: " + wins + " wins -- " + losses + " losses";
-
+        calculateScore();
+        
         if (outcome.equals("win")) {
-            wins += 1;
-            Toast.makeText(this, "You win! " + score, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "You win! Score: " + score, Toast.LENGTH_LONG).show();
         } else {
-            losses += 1;
-            Toast.makeText(this, "You lose! " + score, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "You lose! Score: " + score, Toast.LENGTH_LONG).show();
         }
     }
 
