@@ -9,13 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-<<<<<<< HEAD
-import android.widget.TextView;
-=======
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
->>>>>>> e6110d031afc1d9ac264dd57dcb8cd06af396c9e
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -29,74 +25,6 @@ public class MainActivity extends AppCompatActivity {
     Button btnHint;
     Button btnNewGame;
     ImageView img;
-<<<<<<< HEAD
-    TextView txtDisplay;
-    char[] wordDisplayCharArray;
-    String wordToGuess;
-
-    String revealLetter(char letter, String wordToGuess){
-        // reveal all the letter in the current_word_to_guess
-        int idx = wordToGuess.indexOf(letter);
-        wordDisplayCharArray = wordToGuess.toCharArray();
-        while(idx>=0){
-            wordDisplayCharArray[idx] = wordToGuess.charAt(idx);
-            idx = wordToGuess.indexOf(letter, idx+1);
-        }
-        return String.valueOf(wordDisplayCharArray);
-    }
-
-
-    void initializeGame(){
-        // randomly get a word to guess
-        String[] keys = word.keySet().toArray(new String[word.size()]);
-        String key = keys[new Random().nextInt(keys.length)]; // current word for guess
-        wordToGuess = key;
-        cur_hint1 = word.get(key)[0]; // current hint 1
-        cur_hint2 = word.get(key)[1]; // current hint 2
-
-        // remove current word from the hashtable so it won't appear again when we reset the game
-        word.remove(key);
-
-        // init the displayed word with all underscores
-        wordDisplayCharArray = key.toCharArray();
-        for(int i=0; i<wordDisplayCharArray.length; i++){
-            wordDisplayCharArray[i]='_';
-        }
-        // then turn the chararray to string
-        String worddisplayed  = String.valueOf(wordDisplayCharArray);
-        // make this visible on the txtDisplay
-        txtDisplay.setText(worddisplayed);
-        // init the matchstick man pictures
-        btnNewGame = findViewById(R.id.btnNewGame);
-        img = (ImageView) findViewById(R.id.img);
-        img.setImageResource(R.drawable.hangman_0);
-
-    }
-    void nextDrawable(){
-        int theID = (Integer)img.getTag();
-        switch(theID){
-            case R.drawable.hangman_0:
-                img.setImageResource(R.drawable.hangman_1);
-                break;
-            case R.drawable.hangman_1:
-                img.setImageResource(R.drawable.hangman_2);
-                break;
-            case R.drawable.hangman_2:
-                img.setImageResource(R.drawable.hangman_3);
-                break;
-            case R.drawable.hangman_3:
-                img.setImageResource(R.drawable.hangman_4);
-                break;
-            case R.drawable.hangman_4:
-                img.setImageResource(R.drawable.hangman_5);
-                break;
-            case R.drawable.hangman_5:
-                img.setImageResource(R.drawable.hangman_6);
-                // should return lose message and end this game here
-                break;
-        }
-    }
-=======
     TextView[] txtWord;
 
     ArrayList<View> alphabetButtons;
@@ -109,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
 
     int score;
     int numHints;
->>>>>>> e6110d031afc1d9ac264dd57dcb8cd06af396c9e
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,58 +53,6 @@ public class MainActivity extends AppCompatActivity {
         score = 0;
         numHints = 0;
 
-<<<<<<< HEAD
-        txtDisplay = (TextView) findViewById(R.id.txtDisplay);
-
-        initializeGame();
-
-        Button btn_a = (Button) findViewById(R.id.btn_a);
-        Button btn_b = (Button) findViewById(R.id.btn_b);
-        Button btn_c = (Button) findViewById(R.id.btn_c);
-        Button btn_d = (Button) findViewById(R.id.btn_d);
-        Button btn_e = (Button) findViewById(R.id.btn_e);
-        Button btn_f = (Button) findViewById(R.id.btn_f);
-        Button btn_g = (Button) findViewById(R.id.btn_g);
-        Button btn_h = (Button) findViewById(R.id.btn_h);
-        Button btn_i = (Button) findViewById(R.id.btn_i);
-        Button btn_j = (Button) findViewById(R.id.btn_j);
-        Button btn_k = (Button) findViewById(R.id.btn_k);
-        Button btn_l = (Button) findViewById(R.id.btn_l);
-        Button btn_m = (Button) findViewById(R.id.btn_m);
-        Button btn_n = (Button) findViewById(R.id.btn_n);
-        Button btn_o = (Button) findViewById(R.id.btn_o);
-        Button btn_p = (Button) findViewById(R.id.btn_p);
-        Button btn_q = (Button) findViewById(R.id.btn_q);
-        Button btn_r = (Button) findViewById(R.id.btn_r);
-        Button btn_s = (Button) findViewById(R.id.btn_s);
-        Button btn_t = (Button) findViewById(R.id.btn_t);
-        Button btn_u = (Button) findViewById(R.id.btn_u);
-        Button btn_v = (Button) findViewById(R.id.btn_v);
-        Button btn_w = (Button) findViewById(R.id.btn_w);
-        Button btn_x = (Button) findViewById(R.id.btn_x);
-        Button btn_y = (Button) findViewById(R.id.btn_y);
-        Button btn_z = (Button) findViewById(R.id.btn_z);
-
-        btn_a.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (wordToGuess.indexOf('a')>=0){
-                    String newstr = revealLetter('a',wordToGuess);
-                    txtDisplay.setText(newstr);
-                } else{
-                    nextDrawable();
-                }
-            }
-        });
-
-
-
-
-
-
-
-
-=======
         words = new Hashtable<String, String[]>();
         String[] hints1 = {getResources().getString(R.string.hint1_1), getResources().getString(R.string.hint1_2)};
         words.put(getResources().getString(R.string.word1), hints1);
@@ -195,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
         int orientation = this.getResources().getConfiguration().orientation;
         if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
             btnHint = new Button(this);
+            btnHint.setX(Float.parseFloat("200"));
+            btnHint.setY(Float.parseFloat("680"));
             btnHint.setText("Hint");
             btnHint.setTag("btnHint");
             btnHint.setLayoutParams(llParams);
@@ -219,16 +96,11 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
->>>>>>> e6110d031afc1d9ac264dd57dcb8cd06af396c9e
 
         btnNewGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-<<<<<<< HEAD
-                initializeGame();
-=======
                 createNewGame();
->>>>>>> e6110d031afc1d9ac264dd57dcb8cd06af396c9e
             }
         });
     }
