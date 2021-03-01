@@ -41,6 +41,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            score = savedInstanceState.getInt("score");
+            numHints = savedInstanceState.getInt("numHints");
+
+            word = savedInstanceState.getString("word");
+            hint1 = savedInstanceState.getString("hint1");
+            hint2 = savedInstanceState.getString("hint2");
+
+            letterChosen = savedInstanceState.getBooleanArray("letterChosen");
+        }
+
         setContentView(R.layout.activity_main);
 
         btnNewGame = findViewById(R.id.btnNewGame);
@@ -49,9 +61,6 @@ public class MainActivity extends AppCompatActivity {
         llMain = findViewById(R.id.llMain);
 
         alphabetButtons = (findViewById(R.id.tableLayout)).getTouchables();
-
-        score = 0;
-        numHints = 0;
 
         words = new Hashtable<String, String[]>();
         String[] hints1 = {getResources().getString(R.string.hint1_1), getResources().getString(R.string.hint1_2)};
@@ -65,46 +74,48 @@ public class MainActivity extends AppCompatActivity {
         String[] hints5 = {getResources().getString(R.string.hint5_1), getResources().getString(R.string.hint5_2)};
         words.put(getResources().getString(R.string.word5), hints5);
 
-        createNewGame();
-
-        int orientation = this.getResources().getConfiguration().orientation;
-        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            btnHint = new Button(this);
-            btnHint.setX(Float.parseFloat("200"));
-            btnHint.setY(Float.parseFloat("680"));
-            btnHint.setText("Hint");
-            btnHint.setTag("btnHint");
-            btnHint.setLayoutParams(llParams);
-            llMain.addView(btnHint);
-
-            btnHint.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    numHints += 1;
-
-                    switch (numHints) {
-                        case 1:
-                            Toast.makeText(MainActivity.this, "hint1: " + hint1, Toast.LENGTH_LONG).show();
-                            break;
-                        case 2:
-                            Toast.makeText(MainActivity.this, "hint2: " + hint2, Toast.LENGTH_LONG).show();
-                            break;
-                        case 3:
-                            showOneLetter();
-                            btnHint.setEnabled(false);
-                    }
-                }
-            });
-        }
-
         btnNewGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 createNewGame();
             }
         });
+
+        if (word != null) {
+            setSavedGame();
+        } else {
+            createNewGame();
+        }
     }
 
+    private void displayHintButton() {
+        btnHint = new Button(this);
+        btnHint.setX(Float.parseFloat("200"));
+        btnHint.setY(Float.parseFloat("680"));
+        btnHint.setText("Hint");
+        btnHint.setTag("btnHint");
+        btnHint.setLayoutParams(llParams);
+        llMain.addView(btnHint);
+
+        btnHint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                numHints += 1;
+
+                switch (numHints) {
+                    case 1:
+                        Toast.makeText(MainActivity.this, "hint1: " + hint1, Toast.LENGTH_LONG).show();
+                        break;
+                    case 2:
+                        Toast.makeText(MainActivity.this, "hint2: " + hint2, Toast.LENGTH_LONG).show();
+                        break;
+                    case 3:
+                        showOneLetter();
+                        btnHint.setEnabled(false);
+                }
+            }
+        });
+    }
 
     private Button findButton(String letter) {
         for (View v : alphabetButtons) {
@@ -232,9 +243,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void createNewGame() {
-        enableButtons();
+        score = 0;
+        numHints = 0;
 
-        llMain.removeAllViewsInLayout();
+        enableButtons();
 
         img.setTag(R.drawable.hangman_0);
         img.setImageResource(R.drawable.hangman_0);
@@ -249,10 +261,10 @@ public class MainActivity extends AppCompatActivity {
             letterChosen[i] = false;
         }
 
+        llMain.removeAllViewsInLayout();
         llParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         txtWord = new TextView[word.length()];
-
 
         for (int i = 0; i < txtWord.length; i++) {
             txtWord[i] = new TextView(this);
@@ -260,5 +272,42 @@ public class MainActivity extends AppCompatActivity {
             txtWord[i].setLayoutParams(llParams);
             llMain.addView(txtWord[i]);
         }
+
+        int orientation = this.getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            displayHintButton();
+        }
+    }
+
+    protected void setSavedGame() {
+        llParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        txtWord = new TextView[word.length()];
+
+        for (int i = 0; i < txtWord.length; i++) {
+            txtWord[i] = new TextView(this);
+
+            if (letterChosen[i]) {
+                txtWord[i].setText(word.substring(i, i+1));
+            } else {
+                txtWord[i].setText("-");
+            }
+
+            txtWord[i].setLayoutParams(llParams);
+            llMain.addView(txtWord[i]);
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putInt("score", score);
+        savedInstanceState.putInt("numHints", numHints);
+
+        savedInstanceState.putString("word", word);
+        savedInstanceState.putString("hint1", hint1);
+        savedInstanceState.putString("hint2", hint2);
+
+        savedInstanceState.putBooleanArray("letterChosen", letterChosen);
     }
 }
