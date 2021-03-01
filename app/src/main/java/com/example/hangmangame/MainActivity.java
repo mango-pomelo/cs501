@@ -70,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
         int orientation = this.getResources().getConfiguration().orientation;
         if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
             btnHint = new Button(this);
+            btnHint.setX(Float.parseFloat("200"));
+            btnHint.setY(Float.parseFloat("680"));
             btnHint.setText("Hint");
             btnHint.setTag("btnHint");
             btnHint.setLayoutParams(llParams);
