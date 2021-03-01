@@ -84,10 +84,10 @@ public class MainActivity extends AppCompatActivity {
 
                     switch (numHints) {
                         case 1:
-                            // show hint 1
+                            Toast.makeText(MainActivity.this, "hint1: " + hint1, Toast.LENGTH_LONG).show();
                             break;
                         case 2:
-                            // show hint 2
+                            Toast.makeText(MainActivity.this, "hint2: " + hint2, Toast.LENGTH_LONG).show();
                             break;
                         case 3:
                             showOneLetter();
@@ -252,6 +252,7 @@ public class MainActivity extends AppCompatActivity {
         llParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         txtWord = new TextView[word.length()];
+
 
         for (int i = 0; i < txtWord.length; i++) {
             txtWord[i] = new TextView(this);
