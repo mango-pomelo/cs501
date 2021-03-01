@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -38,6 +39,46 @@ public class MainActivity extends AppCompatActivity {
     int score;
     int numHints;
 
+@Override
+public void onSaveInstanceState(Bundle savedInstanceState){
+    super.onSaveInstanceState(savedInstanceState);
+
+    savedInstanceState.putInt("score", score);
+    savedInstanceState.putString("word",word);
+    savedInstanceState.putString("hint1", hint1);
+    savedInstanceState.putString("hint2", hint2);
+    savedInstanceState.putBooleanArray("letterChosen", letterChosen);
+    savedInstanceState.putInt("img", (Integer) img.getTag());
+    Log.i("waner", img.getTag().toString());
+    savedInstanceState.putInt("numHints", numHints);
+    int numchar = txtWord.length;
+    savedInstanceState.putInt("numchar", numchar);
+    String intxt = "";
+    for (int i =0; i<numchar; i++){
+        intxt += txtWord[i].toString();
+    }
+    savedInstanceState.putString("intxt", intxt);
+}
+
+@Override
+public void onRestoreInstanceState(Bundle savedInstanceState) {
+    super.onRestoreInstanceState(savedInstanceState);
+    int score = savedInstanceState.getInt("score");
+    String word = savedInstanceState.getString("word");
+    String hint1 = savedInstanceState.getString("hint1");
+    String hint2 = savedInstanceState.getString("hint2");
+    boolean [] letterChosen = savedInstanceState.getBooleanArray("letterChosen");
+    img.setTag(savedInstanceState.getInt("img"));
+    Log.i("waner", img.getTag().toString());
+    numHints = savedInstanceState.getInt("numHints");
+    int numchar = savedInstanceState.getInt("numchar");
+    String intxt = savedInstanceState.getString("intxt");
+    for (int i = 0; i<numchar; i++){
+        txtWord[i].setText(intxt.substring(i,i+1));
+    }
+}
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
         alphabetButtons = (findViewById(R.id.tableLayout)).getTouchables();
 
         score = 0;
-        numHints = 0;
 
         words = new Hashtable<String, String[]>();
         String[] hints1 = {getResources().getString(R.string.hint1_1), getResources().getString(R.string.hint1_2)};
@@ -66,36 +106,7 @@ public class MainActivity extends AppCompatActivity {
         words.put(getResources().getString(R.string.word5), hints5);
 
         createNewGame();
-
-        int orientation = this.getResources().getConfiguration().orientation;
-        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            btnHint = new Button(this);
-            btnHint.setX(Float.parseFloat("200"));
-            btnHint.setY(Float.parseFloat("680"));
-            btnHint.setText("Hint");
-            btnHint.setTag("btnHint");
-            btnHint.setLayoutParams(llParams);
-            llMain.addView(btnHint);
-
-            btnHint.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    numHints += 1;
-
-                    switch (numHints) {
-                        case 1:
-                            Toast.makeText(MainActivity.this, "hint1: " + hint1, Toast.LENGTH_LONG).show();
-                            break;
-                        case 2:
-                            Toast.makeText(MainActivity.this, "hint2: " + hint2, Toast.LENGTH_LONG).show();
-                            break;
-                        case 3:
-                            showOneLetter();
-                            btnHint.setEnabled(false);
-                    }
-                }
-            });
-        }
+        // init the matchstick man; reset the hint btn
 
         btnNewGame.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -233,7 +244,7 @@ public class MainActivity extends AppCompatActivity {
 
     protected void createNewGame() {
         enableButtons();
-
+        numHints = 0;
         llMain.removeAllViewsInLayout();
 
         img.setTag(R.drawable.hangman_0);
@@ -249,16 +260,48 @@ public class MainActivity extends AppCompatActivity {
             letterChosen[i] = false;
         }
 
-        llParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        // llParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         txtWord = new TextView[word.length()];
 
-
         for (int i = 0; i < txtWord.length; i++) {
             txtWord[i] = new TextView(this);
-            txtWord[i].setText("-");
+            txtWord[i].setTextSize(32);
+            txtWord[i].setText("_");
+            llParams = new LinearLayout.LayoutParams(100+i, ViewGroup.LayoutParams.WRAP_CONTENT);
             txtWord[i].setLayoutParams(llParams);
             llMain.addView(txtWord[i]);
+        }
+
+        int orientation = this.getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            btnHint = new Button(this);
+            btnHint.setText("Hint");
+            btnHint.setTag("btnHint");
+            // btnHint.setLayoutParams(llParams);
+            llMain.addView(btnHint);
+
+            btnHint.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    numHints += 1;
+
+                    switch (numHints) {
+                        case 1:
+                            Toast.makeText(MainActivity.this, "hint1: " + hint1, Toast.LENGTH_LONG).show();
+                            nextDrawable();
+                            break;
+                        case 2:
+                            Toast.makeText(MainActivity.this, "hint2: " + hint2, Toast.LENGTH_LONG).show();
+                            nextDrawable();
+                            break;
+                        case 3:
+                            showOneLetter();
+                            btnHint.setEnabled(false);
+                            nextDrawable();
+                    }
+                }
+            });
         }
     }
 }
