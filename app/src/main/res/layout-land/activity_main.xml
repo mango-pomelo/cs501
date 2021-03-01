@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtbox"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
         app:layout_constraintVertical_bias="0.0">
 
         <TableRow
@@ -81,7 +81,6 @@
                 android:text="@string/e"
                 android:textColor="#000000"
                 android:textSize="24sp" />
-
             <Button
                 android:id="@+id/btn_f"
                 style="@style/Widget.AppCompat.Button.Borderless"
@@ -93,7 +92,6 @@
                 android:text="@string/f"
                 android:textColor="#000000"
                 android:textSize="24sp" />
-
             <Button
                 android:id="@+id/btn_g"
                 style="@style/Widget.AppCompat.Button.Borderless"
@@ -170,7 +168,6 @@
                 android:text="@string/l"
                 android:textColor="#000000"
                 android:textSize="24sp" />
-
             <Button
                 android:id="@+id/btn_m"
                 style="@style/Widget.AppCompat.Button.Borderless"
@@ -182,7 +179,6 @@
                 android:text="@string/m"
                 android:textColor="#000000"
                 android:textSize="24sp" />
-
             <Button
                 android:id="@+id/btn_n"
                 style="@style/Widget.AppCompat.Button.Borderless"
@@ -247,7 +243,6 @@
                 android:text="@string/r"
                 android:textColor="#000000"
                 android:textSize="24sp" />
-
             <Button
                 android:id="@+id/btn_s"
                 style="@style/Widget.AppCompat.Button.Borderless"
@@ -259,7 +254,6 @@
                 android:text="@string/s"
                 android:textColor="#000000"
                 android:textSize="24sp" />
-
             <Button
                 android:id="@+id/btn_t"
                 style="@style/Widget.AppCompat.Button.Borderless"
@@ -271,7 +265,6 @@
                 android:text="@string/t"
                 android:textColor="#000000"
                 android:textSize="24sp" />
-
             <Button
                 android:id="@+id/btn_u"
                 style="@style/Widget.AppCompat.Button.Borderless"
@@ -333,7 +326,6 @@
                 android:text="@string/x"
                 android:textColor="#000000"
                 android:textSize="24sp" />
-
             <Button
                 android:id="@+id/btn_y"
                 style="@style/Widget.AppCompat.Button.Borderless"
@@ -345,7 +337,6 @@
                 android:text="@string/y"
                 android:textColor="#000000"
                 android:textSize="24sp" />
-
             <Button
                 android:id="@+id/btn_z"
                 style="@style/Widget.AppCompat.Button.Borderless"
@@ -357,22 +348,7 @@
                 android:text="@string/z"
                 android:textColor="#000000"
                 android:textSize="24sp" />
-
             <Button
-<<<<<<< HEAD
-                android:id="@+id/btn_empty1"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:layout_weight="1"
-                android:text="@string/empty"
-                android:textColor="#000000"
-                android:textSize="24sp" />
-
-            <Button
-=======
->>>>>>> e6110d031afc1d9ac264dd57dcb8cd06af396c9e
                 android:id="@+id/btn_empty2"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="0dp"
@@ -399,26 +375,7 @@
         android:id="@+id/txtbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="26dp"
-        android:layout_marginBottom="19dp"
         android:text="@string/chooseletter"
-<<<<<<< HEAD
-        app:layout_constraintBottom_toTopOf="@+id/tableLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDisplay" />
-
-    <ImageView
-        android:id="@+id/img"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="46dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/txtDisplay"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/txtDisplay"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/hangman_0" />
-=======
         app:layout_constraintBottom_toBottomOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.508"
@@ -436,31 +393,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnNewGame"
         />
->>>>>>> e6110d031afc1d9ac264dd57dcb8cd06af396c9e
 
     <Button
         android:id="@+id/btnNewGame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="53dp"
-        android:text="New Game"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/txtDisplay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="26dp"
-        android:layout_marginEnd="169dp"
-        android:layout_marginBottom="25dp"
-        app:layout_constraintBottom_toTopOf="@+id/txtbox"
-        app:layout_constraintEnd_toStartOf="@+id/img"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img" />
-=======
         android:layout_marginTop="40dp"
         android:text="New Game"
         app:layout_constraintEnd_toEndOf="parent"
@@ -475,6 +412,5 @@
         android:layout_height="match_parent"
         android:layout_margin="16dp"
         android:orientation="horizontal" />
->>>>>>> e6110d031afc1d9ac264dd57dcb8cd06af396c9e
 
 </androidx.constraintlayout.widget.ConstraintLayout>
